@@ -1,6 +1,6 @@
 {
     "name": "csps-builder-blocks",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "CSPS 建築積木系列：訓練運算思維的模組化 Minecraft 教育版擴充積木（金字塔、迷宮、螺旋塔…持續擴充）",
     "license": "MIT",
     "dependencies": {
@@ -9,6 +9,7 @@
     "files": [
         "_shared.ts",
         "pyramid.ts",
+        "pixelart.ts",
         "README.md"
     ],
     "testFiles": [
