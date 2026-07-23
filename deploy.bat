@@ -23,8 +23,18 @@ if not exist ".git" (
     git reset --soft origin/main 2>nul
 )
 
+REM Make sure git identity is set (first-time Git install has none,
+REM and commit silently fails without it)
+git config user.name >nul 2>&1 || git config user.name "cspst"
+git config user.email >nul 2>&1 || git config user.email "clawbot@csps.tp.edu.tw"
+
 git add -A
-git commit -m "v%VER%" 2>nul
+git commit -m "v%VER%"
+
+REM Merge remote changes first (web uploads / online edits).
+REM On conflicts, local files win (-X ours) since this folder is the source of truth.
+git pull origin main --no-rebase --no-edit -X ours --allow-unrelated-histories
+
 git push -u origin main
 if errorlevel 1 (
     echo [ERROR] Push failed. Check "gh auth login" and network.
