@@ -16,9 +16,9 @@
 namespace tower101 {
 
     // ── 經典配色（可改這三個函式換配色）──
-    function glassBlock(): number { return blocks.blockWithData(Block.StainedGlass, 9) } // 青綠帷幕玻璃
-    function frameBlock(): number { return Block.StoneBrick }                            // 灰色結構框架
-    function spireBlock(): number { return Block.IronBlock }                             // 塔尖金屬
+    function glassBlock(): number { return Block.TintedGlass }   // 深色帷幕玻璃
+    function frameBlock(): number { return Block.StoneBricks }   // 灰色結構框架
+    function spireBlock(): number { return Block.IronBlock }     // 塔尖金屬
 
     // ── 幾何小工具：以「中心點」為基準 ──
 
