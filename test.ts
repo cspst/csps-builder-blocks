@@ -14,6 +14,16 @@ player.onChat("heart", function () {
     pixelart.drawPatternHere(PixelPattern.Heart)
 })
 
+// 聊天輸入 101 → 在玩家前方蓋經典8節台北101（含裙樓）
+player.onChat("101", function () {
+    tower101.buildTowerHere(8)
+})
+
+// 聊天輸入 101mini → 蓋迷你版（3節、窄版、無裙樓）
+player.onChat("101mini", function () {
+    tower101.buildTower(3, 11, false, pos(10, 0, 10))
+})
+
 // 聊天輸入 pixel → 畫自訂圖案（字母 C，換成金塊當色號 1）
 player.onChat("pixel", function () {
     pixelart.setPalette("1", Block.GoldBlock)
