@@ -15,11 +15,28 @@
 //% color="#00838f" icon="\uf1ad" block="台北101"
 namespace tower101 {
 
-    // ── 經典配色（可改這三個函式換配色）──
-    // 想換色：在編輯器輸入 Block. 會出現自動完成清單，例如試試 Block.CyanStainedGlass
-    function glassBlock(): number { return Block.TintedGlass }   // 深色帷幕玻璃
-    function frameBlock(): number { return Block.StoneBricks }   // 灰色結構框架
-    function spireBlock(): number { return Block.IronBlock }     // 塔尖金屬
+    // ── 材質設定（預設為經典配色，可用「設定101材質」積木更換）──
+    let glassMat = 0   // 0 = 尚未設定，使用預設值
+    let frameMat = 0
+    let spireMat = 0
+
+    function glassBlock(): number { return glassMat != 0 ? glassMat : Block.TintedGlass }   // 深色帷幕玻璃
+    function frameBlock(): number { return frameMat != 0 ? frameMat : Block.StoneBricks }   // 灰色結構框架
+    function spireBlock(): number { return spireMat != 0 ? spireMat : Block.IronBlock }     // 塔尖金屬
+
+    /**
+     * 更換101的三種建材（之後蓋的101都會使用新材質）
+     * @param glass 帷幕玻璃材質
+     * @param frame 結構框架材質
+     * @param spire 塔尖天線材質
+     */
+    //% block="設定101材質 玻璃 %glass=minecraftBlock 框架 %frame=minecraftBlock 塔尖 %spire=minecraftBlock"
+    //% weight=50
+    export function setMaterials(glass: number, frame: number, spire: number): void {
+        glassMat = glass
+        frameMat = frame
+        spireMat = spire
+    }
 
     // ── 幾何小工具：以「中心點」為基準 ──
 

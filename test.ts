@@ -24,6 +24,12 @@ player.onChat("101mini", function () {
     tower101.buildTower(3, 11, false, pos(10, 0, 10))
 })
 
+// 聊天輸入 101gold → 換金色配色再蓋一棟（測試「設定101材質」）
+player.onChat("101gold", function () {
+    tower101.setMaterials(Block.Glass, Block.GoldBlock, Block.DiamondBlock)
+    tower101.buildTowerHere(8)
+})
+
 // 聊天輸入 pixel → 畫自訂圖案（字母 C，換成金塊當色號 1）
 player.onChat("pixel", function () {
     pixelart.setPalette("1", Block.GoldBlock)
