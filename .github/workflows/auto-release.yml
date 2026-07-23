@@ -1,0 +1,37 @@
+# 自動發行：只要 push 到 main（含網頁上傳檔案），
+# 就依 pxt.json 的 version 自動建立 release（vX.Y.Z）。
+# 已存在的版本會自動跳過，不會重複發行。
+name: Auto Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pxt.json'
+      - '**.ts'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 讀取 pxt.json 版本
+        id: ver
+        run: echo "version=v$(python3 -c "import json;print(json.load(open('pxt.json'))['version'])")" >> "$GITHUB_OUTPUT"
+
+      - name: 建立 release（若版本尚未發行）
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ steps.ver.outputs.version }}"
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "release $TAG 已存在，跳過"
+          else
+            gh release create "$TAG" --repo "$GITHUB_REPOSITORY" \
+              --title "$TAG" --notes "自動發行（由 GitHub Actions 建立）"
+            echo "已建立 release $TAG"
+          fi
